@@ -1,9 +1,14 @@
-import React from 'react';
-import { Card, Icon, Label, Image, Button } from 'semantic-ui-react';
+import React, { useContext } from 'react';
+import { Card, Icon, Label, Image, Button, Popup } from 'semantic-ui-react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
+import { AuthContext } from '../context/auth';
+import LikeButton from './LikeButton';
+import DeleteButton from './DeleteButton';
+
 function PostCard(props) {
+	const { user } = useContext(AuthContext);
 	const { body, createdAt, likeCount, commentCount, likes, username, id } = props.post;
 	const likePost = () => {
 		console.log('post liked');
@@ -22,29 +27,28 @@ function PostCard(props) {
 				<Card.Description>{body}</Card.Description>
 			</Card.Content>
 			<Card.Content extra>
-				<Button
-					as="div"
-					labelPosition="right"
-					onClick={likePost}
-					style={{ marginRight: '10px', marginBottom: '10px' }}
-				>
-					<Button color="orange" basic>
-						<Icon name="heart" />
-						Like
-					</Button>
-					<Label basic color="orange" pointing="left">
-						{likeCount}
-					</Label>
-				</Button>
-				<Button as="div" labelPosition="right" onClick={commentOnPost}>
-					<Button color="brown" basic>
-						<Icon name="comments" />
-						Comment
-					</Button>
-					<Label basic color="brown" pointing="left">
-						{commentCount}
-					</Label>
-				</Button>
+				<LikeButton post={{ likeCount, likes, id }} />
+				<Popup
+					content="Comment on a Post"
+					inverted
+					trigger={
+						<Button
+							as={Link}
+							to={`/posts/${id}`}
+							labelPosition="right"
+							onClick={commentOnPost}
+							style={{ marginBottom: '10px' }}
+						>
+							<Button color="brown" basic>
+								<Icon name="comments" />
+							</Button>
+							<Label basic color="brown" pointing="left">
+								{commentCount}
+							</Label>
+						</Button>
+					}
+				/>
+				{user && user.username === username && <DeleteButton postId={id} />}
 			</Card.Content>
 		</Card>
 	);
