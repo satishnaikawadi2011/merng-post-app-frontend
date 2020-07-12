@@ -1,0 +1,35 @@
+.username {
+	width: 20%;
+	height: 15px;
+	background-color: black;
+	margin-bottom: 5px;
+}
+
+.date {
+	width: 40%;
+	height: 10px;
+	background-color: rgba(0, 0, 0, 0.2);
+	margin-bottom: 15px;
+}
+
+.body {
+	width: 80%;
+	height: 15px;
+	background-color: rgba(0, 0, 0, 0.6);
+	margin-bottom: 5px;
+}
+.btn1 {
+	height: 20px;
+	width: 40%;
+	background-color: orange;
+	opacity: 0.5;
+}
+.btn2 {
+	height: 20px;
+	width: 40%;
+	background-color: brown;
+	opacity: 0.5;
+}
+.btn__container {
+	display: flex;
+}
